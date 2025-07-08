@@ -124,6 +124,26 @@ $(document).ready(function() {
             cache: true
         }
     });
+
+    // Dress type logic
+    function toggleDressRequired() {
+        var dressType = $('#dress_type').val();
+        if (dressType === 'تصميم') {
+            $('#dress_id').prop('required', false);
+        } else if (dressType === 'جاهز') {
+            $('#dress_id').prop('required', true);
+        } else {
+            $('#dress_id').prop('required', false);
+        }
+    }
+
+    // Initial check
+    toggleDressRequired();
+
+    // On change
+    $('#dress_type').on('change', function() {
+        toggleDressRequired();
+    });
 });
 </script>
 @endpush 

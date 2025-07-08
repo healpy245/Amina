@@ -59,7 +59,7 @@ class AppointmentController extends Controller
     {
         $validated = $request->validate([
             'client_id' => 'required|exists:clients,id',
-            'dress_id' => 'required|exists:dresses,id',
+            'dress_id' => 'required_if:dress_type,جاهز|nullable|exists:dresses,id',
             'date' => 'required|date',
             'time' => 'required',
             'notes' => 'nullable|string',

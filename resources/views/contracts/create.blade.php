@@ -35,12 +35,6 @@
                     </div>
 
                     <div>
-                        <x-input-label for="contract_number" :value="'رقم العقد'" />
-                        <x-text-input id="contract_number" class="block mt-1 w-full" type="text" name="contract_number" :value="old('contract_number')" required />
-                        <x-input-error :messages="$errors->get('contract_number')" class="mt-2" />
-                    </div>
-
-                    <div>
                         <x-input-label for="client_id" :value="'الزبون'" />
                         <select id="client_id" name="client_id" class="block mt-1 w-full border-boutique-300 dark:border-neutral-700 dark:bg-neutral-900 text-boutique-900 dark:text-neutral-300 focus:border-boutique-500 dark:focus:border-boutique-600 focus:ring-boutique-500 dark:focus:ring-boutique-600 rounded-md shadow-sm select2-ajax" required>
                             @if(old('client_id'))
@@ -48,16 +42,6 @@
                             @endif
                         </select>
                         <x-input-error :messages="$errors->get('client_id')" class="mt-2" />
-                    </div>
-
-                    <div>
-                        <x-input-label for="dress_id" :value="'الفستان'" />
-                        <select id="dress_id" name="dress_id" class="block mt-1 w-full border-boutique-300 dark:border-neutral-700 dark:bg-neutral-900 text-boutique-900 dark:text-neutral-300 focus:border-boutique-500 dark:focus:border-boutique-600 focus:ring-boutique-500 dark:focus:ring-boutique-600 rounded-md shadow-sm select2-ajax" required>
-                            @if(old('dress_id'))
-                                <option value="{{ old('dress_id') }}" selected>{{ \App\Models\Dress::find(old('dress_id'))->name ?? '' }}</option>
-                            @endif
-                        </select>
-                        <x-input-error :messages="$errors->get('dress_id')" class="mt-2" />
                     </div>
 
                     <div>
@@ -141,22 +125,6 @@ $(document).ready(function() {
         allowClear: true,
         ajax: {
             url: '{{ route('clients.search') }}',
-            dataType: 'json',
-            delay: 250,
-            data: function (params) {
-                return { q: params.term };
-            },
-            processResults: function (data) {
-                return { results: data.results };
-            },
-            cache: true
-        }
-    });
-    $('#dress_id').select2({
-        placeholder: 'اختر الفستان',
-        allowClear: true,
-        ajax: {
-            url: '{{ route('dresses.search') }}',
             dataType: 'json',
             delay: 250,
             data: function (params) {
