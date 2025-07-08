@@ -122,3 +122,42 @@
     </div>
 </div>
 @endsection 
+
+@push('scripts')
+<script>
+$(document).ready(function() {
+    $('#client_id').select2({
+        placeholder: 'اختر الزبون',
+        allowClear: true,
+        ajax: {
+            url: '{{ route('clients.search') }}',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return { q: params.term };
+            },
+            processResults: function (data) {
+                return { results: data.results };
+            },
+            cache: true
+        }
+    });
+    $('#dress_id').select2({
+        placeholder: 'اختر الفستان',
+        allowClear: true,
+        ajax: {
+            url: '{{ route('dresses.search') }}',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return { q: params.term };
+            },
+            processResults: function (data) {
+                return { results: data.results };
+            },
+            cache: true
+        }
+    });
+});
+</script>
+@endpush 

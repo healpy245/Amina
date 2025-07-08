@@ -57,7 +57,7 @@
                         @endphp
                         <tr onclick="window.location='{{ route('contracts.show', $contract) }}'" class="cursor-pointer hover:bg-boutique-100 dark:hover:bg-boutique-900 transition even:bg-cream-100/30 dark:even:bg-neutral-900/30" style="cursor:pointer;" data-id="{{ $contract->id }}">
                             <td class="px-4 py-4 text-center whitespace-nowrap">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-boutique-600 bg-boutique-800 border-boutique-600 rounded focus:ring-0 contract-checkbox">
+                                <input type="checkbox" class="form-checkbox h-5 w-5 text-boutique-600 bg-boutique-800 border-boutique-600 rounded focus:ring-0 contract-checkbox" onclick="event.stopPropagation();">
                             </td>
                             <td class="px-6 py-4 font-extrabold text-boutique-900 dark:text-white whitespace-nowrap">{{ $contract->contract_number }}</td>
                             <td class="px-6 py-4 text-neutral-700 dark:text-neutral-200 whitespace-nowrap">{{ $contract->client->name }}</td>

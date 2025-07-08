@@ -50,7 +50,7 @@
                     @forelse($clients as $client)
                         <tr onclick="window.location='{{ route('clients.show', $client) }}'" class="cursor-pointer hover:bg-boutique-100 dark:hover:bg-boutique-900 transition even:bg-cream-100/30 dark:even:bg-neutral-900/30" style="cursor:pointer;" data-id="{{ $client->id }}">
                             <td class="px-4 py-4 text-center whitespace-nowrap">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-boutique-600 bg-boutique-800 border-boutique-600 rounded focus:ring-0 client-checkbox">
+                                <input type="checkbox" class="form-checkbox h-5 w-5 text-boutique-600 bg-boutique-800 border-boutique-600 rounded focus:ring-0 client-checkbox" onclick="event.stopPropagation();">
                             </td>
                             <td class="px-6 py-4 text-center whitespace-nowrap">
                                 @if($client->image)
@@ -65,12 +65,12 @@
                             <td class="px-6 py-4 text-neutral-700 dark:text-neutral-200 whitespace-nowrap">{{ $client->address }}</td>
                             <td class="px-6 py-4 text-neutral-700 dark:text-neutral-200 whitespace-nowrap">{{ $client->country ?? '-' }}</td>
                             <td class="px-6 py-4 flex gap-2 justify-end whitespace-nowrap">
-                                <a href="{{ route('clients.edit', $client) }}" class="bg-boutique-600 hover:bg-boutique-700 text-white px-4 py-2 rounded-xl font-bold shadow transition-all duration-300 flex items-center gap-1" title="تعديل">
+                                <a href="{{ route('clients.edit', $client) }}" onclick="event.stopPropagation();" class="bg-boutique-600 hover:bg-boutique-700 text-white px-4 py-2 rounded-xl font-bold shadow transition-all duration-300 flex items-center gap-1" title="تعديل">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.5 19.213l-4 1 1-4 12.362-12.726z" />
                                     </svg>
                                 </a>
-                                <form action="{{ route('clients.destroy', $client) }}" method="POST" onsubmit="return confirm('هل تريد حذف هذا الزبون؟');">
+                                <form action="{{ route('clients.destroy', $client) }}" method="POST" onsubmit="event.stopPropagation(); return confirm('هل تريد حذف هذا الزبون؟');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded-xl shadow transition-all duration-300 flex items-center gap-1 font-semibold" title="حذف">
