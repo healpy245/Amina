@@ -59,7 +59,7 @@ class ContractController extends Controller
         $validated = $request->validate([
             'appointment_id' => 'required|exists:appointments,id',
             'client_id' => 'required|exists:clients,id',
-            'dress_id' => 'required|exists:dresses,id',
+            // 'dress_id' => 'required|exists:dresses,id', // removed, will be set from appointment
             'deposit_paid' => 'required|boolean',
             'signed_at' => 'required|date',
             'amount' => 'required|numeric|min:0',
@@ -67,11 +67,17 @@ class ContractController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
             'status' => 'required|string',
         ]);
-        // Temporarily set contract_number to null, will update after creation
-        $validated['contract_number'] = null;
+        // Get dress_id from appointment, or set to null if dress_type is 'تصميم'
+        $appointment = \App\Models\Appointment::findOrFail($validated['appointment_id']);
+        if ($appointment->dress_type === 'جاهز') {
+            $validated['dress_id'] = $appointment->dress_id;
+        } else {
+            $validated['dress_id'] = null;
+        }
+        // Set contract_number automatically before creation
+        $nextId = (\App\Models\Contract::max('id') ?? 0) + 1;
+        $validated['contract_number'] = '#' . $nextId;
         $contract = Contract::create($validated);
-        $contract->contract_number = '#' . $contract->id;
-        $contract->save();
         if ($request->wantsJson()) {
             return response()->json($contract->load(['client', 'dress']), 201);
         }
